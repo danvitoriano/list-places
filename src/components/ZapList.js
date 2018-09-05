@@ -27,7 +27,9 @@ class ZapList extends React.Component {
         <div>
           {this.state.data.map(c => (
             <div key={c.id}>
-              <a href={"/zap/" + c.id}>{c.id}</a>
+              <a id={c.id} href={"/zap/" + c.id}>
+                {c.id}
+              </a>
             </div>
           ))}
         </div>
