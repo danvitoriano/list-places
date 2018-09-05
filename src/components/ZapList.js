@@ -1,11 +1,10 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
+import Pagination from "./Pagination";
+import ZapItemSolo from "./ZapItemSolo";
 
 class ZapList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { data: [], loading: true };
-  }
+  state = { data: [], loading: true, page: 1, itemsPerPage: 20 };
 
   componentDidMount() {
     var myInit = {
@@ -24,18 +23,25 @@ class ZapList extends React.Component {
   render() {
     return (
       <div>
+        <Pagination
+          totalPages={this.state.data.length}
+          currentPage={this.state.page}
+          itemsPerPage={this.state.itemsPerPage}
+        />
         <div>
-          {this.state.data.map(c => (
-            <div key={c.id}>
-              <a id={c.id} href={"/zap/" + c.id}>
-                {c.id}
-              </a>
-            </div>
-          ))}
+          <ProductList data={this.state.data} />
         </div>
       </div>
     );
   }
 }
+
+var ProductList = props => (
+  <div>
+    {props.data.map(c => (
+      <ZapItemSolo key={c.id} data={c} />
+    ))}
+  </div>
+);
 
 export default withRouter(ZapList);
