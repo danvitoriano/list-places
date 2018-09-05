@@ -42,7 +42,7 @@ class Zap extends React.Component {
           <div>
             {this.state.data.map(c => (
               <div key={c.id}>
-                <a href={c.id}>{c.id}</a>
+                <a href={"/zap/" + c.id}>{c.id}</a>
               </div>
             ))}
           </div>
