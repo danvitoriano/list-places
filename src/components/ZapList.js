@@ -1,45 +1,59 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import Pagination from "./Pagination";
-import ZapItemSolo from "./ZapItemSolo";
+import ZapItem from "./ZapItem";
 
 class ZapList extends React.Component {
-  state = { data: [], loading: true, page: 1, itemsPerPage: 20 };
+  constructor() {
+    super();
+
+    this.state = {
+      loading: true,
+      exampleItems: [],
+      pageOfItems: []
+    };
+
+    this.onChangePage = this.onChangePage.bind(this);
+  }
 
   componentDidMount() {
-    var myInit = {
-      method: "GET",
-      mode: "cors",
-      cache: "default"
-    };
+    var myInit = { method: "GET", mode: "cors", cache: "default" };
     fetch(
       "http://grupozap-code-challenge.s3-website-us-east-1.amazonaws.com/sources/source-1.json",
       myInit
     )
       .then(response => response.json())
-      .then(data => this.setState({ data: data, loading: false }));
+      .then(data => this.setState({ exampleItems: data, loading: false }));
+  }
+
+  onChangePage(pageOfItems) {
+    // update state with new page of items
+    this.setState({ pageOfItems: pageOfItems });
   }
 
   render() {
-    return (
-      <div>
-        <Pagination
-          totalPages={this.state.data.length}
-          currentPage={this.state.page}
-          itemsPerPage={this.state.itemsPerPage}
-        />
+    if (this.state.loading === true) {
+      return <div>loading...</div>;
+    } else {
+      return (
         <div>
-          <ProductList data={this.state.data} />
+          <Pagination
+            items={this.state.exampleItems}
+            onChangePage={this.onChangePage}
+          />
+          <div>
+            <ProductList data={this.state.pageOfItems} />
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
 }
 
 var ProductList = props => (
   <div>
     {props.data.map(c => (
-      <ZapItemSolo key={c.id} data={c} />
+      <ZapItem key={c.id} data={c} />
     ))}
   </div>
 );

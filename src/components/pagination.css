@@ -1,0 +1,16 @@
+li.active {
+  background-color: blue;
+  color: white;
+  pointer-events: none;
+}
+li a {
+  text-decoration: underline;
+}
+li.disabled {
+  opacity: 0.25;
+  pointer-events: none;
+}
+li.active a,
+li.disabled a {
+  text-decoration: none;
+}
