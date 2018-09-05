@@ -1,7 +1,8 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
+import { Legend } from "glamorous";
 
-class Zap extends React.Component {
+class Properties extends React.Component {
   constructor(props) {
     super(props);
     this.state = { data: [], loading: true };
@@ -28,8 +29,16 @@ class Zap extends React.Component {
     }
   }
 
+  listVendor(obj) {
+    console.log(this.props.match.params.id);
+    if ("pricingInfos" in obj && obj.pricingInfos.rentalTotalPrice >= 3500) {
+      return true;
+    }
+  }
+
   render() {
-    if (this.props.match.params.id) {
+    if (this.props.match.params.vendor) {
+      console.log(this.props.match.params.vendor);
       return this.state.data.filter(this.listItem).map(item => (
         <div key={item.id}>
           <div>{item.pricingInfos.price}</div>
@@ -40,7 +49,7 @@ class Zap extends React.Component {
       return (
         <div>
           <div>
-            {this.state.data.map(c => (
+            {this.state.data.filter(this.listVendor).map(c => (
               <div key={c.id}>
                 <a href={c.id}>{c.id}</a>
               </div>
@@ -52,4 +61,4 @@ class Zap extends React.Component {
   }
 }
 
-export default withRouter(Zap);
+export default withRouter(Properties);
