@@ -2,7 +2,6 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Home from "./components/Home";
 import Zap from "./components/Zap";
-import Vivareal from "./components/Vivareal";
 
 const App = () => (
   <main>
