@@ -124,12 +124,13 @@ class Pagination extends React.Component {
     return (
       <ul {...styles.list}>
         <li className={pager.currentPage === 1 ? "disabled" : ""}>
-          <a {...styles.link} onClick={() => this.setPage(1)}>
+          <a data-cy="first" {...styles.link} onClick={() => this.setPage(1)}>
             First
           </a>
         </li>
         <li className={pager.currentPage === 1 ? "disabled" : ""}>
           <a
+            data-cy="previous"
             {...styles.link}
             onClick={() => this.setPage(pager.currentPage - 1)}
           >
@@ -150,6 +151,7 @@ class Pagination extends React.Component {
           className={pager.currentPage === pager.totalPages ? "disabled" : ""}
         >
           <a
+            data-cy="next"
             {...styles.link}
             onClick={() => this.setPage(pager.currentPage + 1)}
           >
@@ -159,7 +161,11 @@ class Pagination extends React.Component {
         <li
           className={pager.currentPage === pager.totalPages ? "disabled" : ""}
         >
-          <a {...styles.link} onClick={() => this.setPage(pager.totalPages)}>
+          <a
+            data-cy="last"
+            {...styles.link}
+            onClick={() => this.setPage(pager.totalPages)}
+          >
             Last
           </a>
         </li>
