@@ -81,5 +81,26 @@ describe("test list all products", function() {
       cy.contains("168c4f8d0a2e");
       cy.contains("900000");
     });
+    it("contains slider", function() {
+      cy.get("#slider-slides")
+        .should("be.visible")
+        .find("img")
+        .should("have.length", 5);
+    });
+    it("navigate slider", function() {
+      cy.get("#next").click();
+      cy.wait(300);
+      cy.get("#next").click();
+      cy.wait(300);
+      cy.get("#next").click();
+      cy.wait(300);
+      cy.get("#previous").click();
+      cy.wait(300);
+      cy.get("#previous").click();
+      cy.wait(300);
+      cy.get("#previous").click();
+      cy.wait(300);
+      cy.get("#previous").click();
+    });
   });
 });

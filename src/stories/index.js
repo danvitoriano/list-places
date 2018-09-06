@@ -7,6 +7,7 @@ import Pagination from "../components/Pagination";
 import Text from "../components/Text";
 import Image from "../components/Image";
 import Button from "../components/Button";
+import Slider from "../components/Slider";
 
 const data = {
   textLabel: "My Sample Text",
@@ -50,4 +51,7 @@ storiesOf("Image", module).add("default image", () => (
 ));
 storiesOf("Button", module).add("default Button", () => (
   <Button label="Button" />
+));
+storiesOf("Slider", module).add("default Slider", () => (
+  <Slider images={data.images} />
 ));

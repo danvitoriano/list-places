@@ -1,5 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
+import Slider from "./Slider";
 
 class ZapItemDetail extends React.Component {
   constructor(props) {
@@ -31,6 +32,7 @@ class ZapItemDetail extends React.Component {
   render() {
     return this.state.data.filter(this.listItem).map(item => (
       <div key={item.id}>
+        <Slider images={item.images} />
         <div>{item.pricingInfos.price}</div>
         <div>{item.id}</div>
       </div>
