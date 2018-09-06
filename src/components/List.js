@@ -142,9 +142,11 @@ var ProductList = props => {
           lat >= boundinBoxZap.minlat &&
           lat <= boundinBoxZap.maxlat
         ) {
-          return <Card key={c.id} data={c} boundinBoxZap="true" />;
+          return (
+            <Card key={c.id} dataCy={c.id} data={c} boundinBoxZap="true" />
+          );
         } else {
-          return <Card key={c.id} data={c} />;
+          return <Card key={c.id} dataCy={c.id} data={c} />;
         }
       })}
     </div>
