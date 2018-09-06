@@ -6,6 +6,7 @@ import Card from "../components/Card";
 import Pagination from "../components/Pagination";
 import Text from "../components/Text";
 import Image from "../components/Image";
+import Button from "../components/Button";
 
 const data = {
   textLabel: "My Sample Text",
@@ -46,4 +47,7 @@ storiesOf("Text", module).add("price", () => (
 ));
 storiesOf("Image", module).add("default image", () => (
   <Image src={data.images[0]} label="Image" />
+));
+storiesOf("Button", module).add("default Button", () => (
+  <Button label="Button" />
 ));
