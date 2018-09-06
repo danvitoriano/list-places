@@ -3,6 +3,7 @@ import { css } from "glamor";
 
 const styles = {
   container: css({
+    fontFamily: "Open Sans",
     margin: 10,
     fontWeight: 300,
     fontSize: 16,
@@ -10,9 +11,10 @@ const styles = {
     "> h1": {
       fontSize: 24
     },
-    "> div": {
+    "> span": {
       fontSize: 20,
-      color: "#00ff00"
+      fontWeight: "bold",
+      color: "blue"
     }
   })
 };
@@ -28,7 +30,7 @@ function Text(props) {
     case "price":
       return (
         <div {...styles.container}>
-          <div>{props.label}</div>
+          <span>{props.label}</span>
         </div>
       );
     default:

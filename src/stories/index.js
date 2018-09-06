@@ -4,8 +4,10 @@ import { storiesOf } from "@storybook/react";
 
 import Card from "../components/Card";
 import Pagination from "../components/Pagination";
+import Text from "../components/Text";
 
 const data = {
+  textLabel: "My Sample Text",
   id: 787654456,
   address: {
     geoLocation: {
@@ -27,3 +29,10 @@ storiesOf("Pagination", module).add(
   () => <Pagination items={exampleItems} onChangePage={() => null} />
 );
 storiesOf("Card", module).add("with infos", () => <Card data={data} />);
+storiesOf("Text", module).add("default", () => <Text label={data.textLabel} />);
+storiesOf("Text", module).add("h1", () => (
+  <Text type="h1" label={data.textLabel} />
+));
+storiesOf("Text", module).add("price", () => (
+  <Text type="price" label={data.pricingInfos.price} />
+));
