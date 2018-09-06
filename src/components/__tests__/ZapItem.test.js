@@ -3,7 +3,18 @@ import ReactDOM from "react-dom";
 import ZapItem from "../ZapItem";
 
 const data = {
-  id: 787654456
+  id: 787654456,
+  address: {
+    geoLocation: {
+      location: {
+        lon: -46.787,
+        lat: -46.897
+      }
+    }
+  },
+  pricingInfos: {
+    price: 42000
+  }
 };
 
 it("renders without crashing", () => {

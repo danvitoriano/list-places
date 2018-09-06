@@ -12,49 +12,74 @@ describe("test list all products", function() {
         .click();
       cy.url().should("include", "zap");
     });
-    it("contains list", function() {
+    it("contains list first page", function() {
       cy.wait(1000);
-      cy.contains("7baf2775d4a2");
+      cy.get("[data-cy=list-container]")
+        .find("a")
+        .should("have.length", 20);
+      cy.get("[data-cy=7baf2775d4a2]").should("not.be.visible");
+      cy.get("[data-cy=a0f9d9647551]").should("not.be.visible");
+      cy.contains("fed26dbe5881");
       cy.contains("3e1b5315da17");
     });
     it("click next page", function() {
       cy.get("[data-cy=next]").click();
     });
     it("contains page 2", function() {
-      cy.contains("8a1192bf3d10");
+      cy.get("[data-cy=b154e19dcf71]").should("not.be.visible");
+      cy.contains("45e188400618");
+      cy.get("[data-cy=list-container]")
+        .find("a")
+        .should("have.length", 20);
     });
     it("click last page", function() {
       cy.get("[data-cy=last]").click();
     });
     it("contains last page", function() {
-      cy.contains("f9200ab0c5a4");
+      cy.get("[data-cy=c8bcd9880342]").should("be.visible");
+      cy.contains("3a1de7365c7b");
+      cy.get("[data-cy=list-container]")
+        .find("a")
+        .should("have.length", 20);
     });
     it("click previous page", function() {
       cy.get("[data-cy=previous]").click();
     });
     it("contains page 19", function() {
-      cy.contains("f88ae7379d25");
+      cy.get("[data-cy=5d63d877585f]").should("be.visible");
+      cy.contains("ff064a715bad");
+      cy.get("[data-cy=list-container]")
+        .find("a")
+        .should("have.length", 20);
     });
     it("click first page", function() {
       cy.get("[data-cy=first]").click();
     });
     it("contains first page", function() {
-      cy.contains("7baf2775d4a2");
+      cy.get("[data-cy=7baf2775d4a2]").should("not.be.visible");
       cy.contains("3e1b5315da17");
+      cy.get("[data-cy=list-container]")
+        .find("a")
+        .should("have.length", 20);
     });
     it("click next page", function() {
       cy.get("[data-cy=next]").click();
     });
     it("contains page 2", function() {
-      cy.contains("8a1192bf3d10");
+      cy.get("[data-cy=b154e19dcf71]").should("not.be.visible");
+      cy.contains("45e188400618");
+      cy.get("[data-cy=list-container]")
+        .find("a")
+        .should("have.length", 20);
     });
     it("click one item", function() {
-      cy.get("[data-cy=8a1192bf3d10]").click();
-      cy.url().should("include", "zap/8a1192bf3d10");
+      cy.get("[data-cy=168c4f8d0a2e]").click();
+      cy.url().should("include", "zap/168c4f8d0a2e");
     });
     it("contains text", function() {
-      cy.contains("8a1192bf3d10");
-      cy.contains("4320");
+      cy.get("[data-cy=b154e19dcf71]").should("not.be.visible");
+      cy.contains("168c4f8d0a2e");
+      cy.contains("900000");
     });
   });
 });
