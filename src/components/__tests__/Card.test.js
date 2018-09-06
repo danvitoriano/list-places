@@ -4,7 +4,17 @@ import Card from "../Card";
 
 const data = {
   id: 787654456,
+  parkingSpaces: 1,
+  images: [
+    "https://resizedimgs.vivareal.com/crop/400x300/vr.images.sp/285805119ab0761500127aebd8ab0e1d.jpg",
+    "https://resizedimgs.vivareal.com/crop/400x300/vr.images.sp/4af1656b66b9e12efff6ce06f51926f6.jpg",
+    "https://resizedimgs.vivareal.com/crop/400x300/vr.images.sp/895f0d4ce1e641fd5c3aad48eff83ac8.jpg",
+    "https://resizedimgs.vivareal.com/crop/400x300/vr.images.sp/e7b5cce2d9aee78867328dfa0a7ba4c6.jpg",
+    "https://resizedimgs.vivareal.com/crop/400x300/vr.images.sp/d833da4cdf6b25b7acf3ae0710d3286d.jpg"
+  ],
   address: {
+    city: "São Paulo",
+    neighborhood: "Brooklin",
     geoLocation: {
       location: {
         lon: -46.787,
@@ -12,8 +22,13 @@ const data = {
       }
     }
   },
+  bathrooms: 2,
+  bedrooms: 3,
   pricingInfos: {
-    price: 42000
+    yearlyIptu: "0",
+    price: "405000",
+    businessType: "SALE",
+    monthlyCondoFee: "495"
   }
 };
 

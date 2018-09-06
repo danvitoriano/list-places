@@ -8,10 +8,18 @@ import Text from "../components/Text";
 import Image from "../components/Image";
 import Button from "../components/Button";
 import Slider from "../components/Slider";
+import Link from "../components/Link";
 
 const data = {
   textLabel: "My Sample Text",
+  usableAreas: 69,
+  listingType: "USED",
+  createdAt: "2016-11-16T04:14:02Z",
+  listingStatus: "ACTIVE",
   id: 787654456,
+  parkingSpaces: 1,
+  updatedAt: "2016-11-16T04:14:02Z",
+  owner: false,
   images: [
     "https://resizedimgs.vivareal.com/crop/400x300/vr.images.sp/285805119ab0761500127aebd8ab0e1d.jpg",
     "https://resizedimgs.vivareal.com/crop/400x300/vr.images.sp/4af1656b66b9e12efff6ce06f51926f6.jpg",
@@ -20,15 +28,23 @@ const data = {
     "https://resizedimgs.vivareal.com/crop/400x300/vr.images.sp/d833da4cdf6b25b7acf3ae0710d3286d.jpg"
   ],
   address: {
+    city: "São Paulo",
+    neighborhood: "Brooklin",
     geoLocation: {
+      precision: "ROOFTOP",
       location: {
-        lon: -46.787,
-        lat: -46.897
+        lon: -46.716542,
+        lat: -23.502555
       }
     }
   },
+  bathrooms: 2,
+  bedrooms: 3,
   pricingInfos: {
-    price: 42000
+    yearlyIptu: "0",
+    price: "405000",
+    businessType: "SALE",
+    monthlyCondoFee: "495"
   }
 };
 
@@ -55,3 +71,4 @@ storiesOf("Button", module).add("default Button", () => (
 storiesOf("Slider", module).add("default Slider", () => (
   <Slider images={data.images} />
 ));
+storiesOf("Link", module).add("default Link", () => <Link label="Link" />);

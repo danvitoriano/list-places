@@ -7,9 +7,9 @@ const styles = {
     margin: 10,
     fontWeight: 300,
     fontSize: 16,
-    lineHeight: 1.5,
+    lineHeight: 1,
     "> h1": {
-      fontSize: 24
+      fontSize: 22
     },
     "> span": {
       fontSize: 20,
@@ -30,7 +30,10 @@ function Text(props) {
     case "price":
       return (
         <div {...styles.container}>
-          <span>{props.label}</span>
+          <span>
+            {"R$ " +
+              props.label.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+          </span>
         </div>
       );
     default:
