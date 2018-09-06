@@ -2,6 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import Pagination from "./Pagination";
 import Card from "./Card";
+import Header from "./Header";
 
 const source =
   "http://grupozap-code-challenge.s3-website-us-east-1.amazonaws.com/sources/source-1.json";
@@ -117,13 +118,14 @@ class List extends React.Component {
       return (
         <div>
           <p>total itens: {this.state.fetchedItems.length}</p>
+          <Header />
+          <div>
+            <ProductList data={this.state.pageOfItems} />
+          </div>
           <Pagination
             items={this.state.fetchedItems}
             onChangePage={this.onChangePage}
           />
-          <div>
-            <ProductList data={this.state.pageOfItems} />
-          </div>
         </div>
       );
     }
