@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import Pagination from "./Pagination";
-import ZapItem from "./ZapItem";
+import Card from "./Card";
 
 const source =
   "http://grupozap-code-challenge.s3-website-us-east-1.amazonaws.com/sources/source-1.json";
@@ -142,9 +142,9 @@ var ProductList = props => {
           lat >= boundinBoxZap.minlat &&
           lat <= boundinBoxZap.maxlat
         ) {
-          return <ZapItem key={c.id} data={c} boundinBoxZap="true" />;
+          return <Card key={c.id} data={c} boundinBoxZap="true" />;
         } else {
-          return <ZapItem key={c.id} data={c} />;
+          return <Card key={c.id} data={c} />;
         }
       })}
     </div>
