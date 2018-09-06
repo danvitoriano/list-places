@@ -14,7 +14,7 @@ const boundinBoxZap = {
   maxlat: -23.546686
 };
 
-class ZapList extends React.Component {
+class List extends React.Component {
   constructor() {
     super();
 
@@ -151,4 +151,4 @@ var ProductList = props => {
   );
 };
 
-export default withRouter(ZapList);
+export default withRouter(List);
