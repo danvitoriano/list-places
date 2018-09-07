@@ -1,22 +1,26 @@
 import React from "react";
-
 import { storiesOf } from "@storybook/react";
-
-import Card from "../components/Card";
-import Pagination from "../components/Pagination";
-import Text from "../components/Text";
-import Image from "../components/Image";
+import { MemoryRouter } from "react-router-dom";
 import Button from "../components/Button";
-import Slider from "../components/Slider";
+import Card from "../components/Card";
+import Header from "../components/Header";
+import Home from "../components/Home";
+import Image from "../components/Image";
 import Link from "../components/Link";
+import App from "../App";
+import Pagination from "../components/Pagination";
+import Slider from "../components/Slider";
+import Text from "../components/Text";
+import ZapItemDetail from "../components/ZapItemDetail";
 
 const data = {
+  total: "290 results",
   textLabel: "My Sample Text",
   usableAreas: 69,
   listingType: "USED",
   createdAt: "2016-11-16T04:14:02Z",
   listingStatus: "ACTIVE",
-  id: 787654456,
+  id: "fed26dbe5881",
   parkingSpaces: 1,
   updatedAt: "2016-11-16T04:14:02Z",
   owner: false,
@@ -72,3 +76,24 @@ storiesOf("Slider", module).add("default Slider", () => (
   <Slider images={data.images} />
 ));
 storiesOf("Link", module).add("default Link", () => <Link label="Link" />);
+storiesOf("Header", module).add("default Header", () => (
+  <Header total={data.total} />
+));
+storiesOf("Home", module).add("default Home", () => <Home />);
+storiesOf("List", module)
+  .addDecorator(story => (
+    <MemoryRouter initialEntries={[{ pathname: "/zap" }]} initialIndex={1}>
+      {story()}
+    </MemoryRouter>
+  ))
+  .add("pathname: /zap", () => <App />);
+storiesOf("Detail", module)
+  .addDecorator(story => (
+    <MemoryRouter
+      initialEntries={[{ pathname: "/zap/" + data.id }]}
+      initialIndex={1}
+    >
+      {story()}
+    </MemoryRouter>
+  ))
+  .add("pathname: /zap/" + data.id, () => <App />);

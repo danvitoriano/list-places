@@ -117,8 +117,7 @@ class List extends React.Component {
     } else {
       return (
         <div>
-          <p>total itens: {this.state.fetchedItems.length}</p>
-          <Header />
+          <Header total={this.state.fetchedItems.length} />
           <div>
             <ProductList data={this.state.pageOfItems} />
           </div>
