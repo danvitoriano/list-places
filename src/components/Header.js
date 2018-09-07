@@ -38,9 +38,11 @@ function Header(props) {
         <a href="/">
           <Text label="Real Estate" type="h1" />
         </a>
-        <div {...styles.back}>
-          <Text label={props.total + " results"} />
-        </div>
+        {props.total ? (
+          <div {...styles.back}>
+            <Text label={props.total + " results"} />
+          </div>
+        ) : null}
       </div>
     </div>
   );
