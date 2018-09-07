@@ -12,7 +12,7 @@ const family = css.fontFace({
 });
 
 // css global styles
-css.global("html, body", { fontFamily: family });
+css.global("html, body", { fontFamily: family, margin: 0 });
 
 // main app router
 const App = () => (

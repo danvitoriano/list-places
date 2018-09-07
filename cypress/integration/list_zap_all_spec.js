@@ -72,6 +72,9 @@ describe("test list all products", function() {
         .find("> div")
         .should("have.length", 20);
     });
+    it("should have header", function() {
+      cy.get("[data-cy=header]").contains("Real Estate").contains;
+    });
     it("click one item", function() {
       cy.get("[data-cy=168c4f8d0a2e]")
         .find("[data-cy=link-detail]")

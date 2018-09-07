@@ -4,11 +4,12 @@ import "./pagination.css";
 
 const styles = {
   list: css({
-    "> li": {
-      display: "inline-block",
-      padding: 10,
-      border: "1px thin gray",
-      margin: 2
+    display: "grid",
+    "> ul": {
+      margin: "20px auto",
+      padding: 0,
+      listStyleType: "none",
+      fontFamily: "Open Sans"
     }
   }),
   link: css({
@@ -122,54 +123,56 @@ class Pagination extends React.Component {
     }
 
     return (
-      <ul {...styles.list}>
-        <li className={pager.currentPage === 1 ? "disabled" : ""}>
-          <a data-cy="first" {...styles.link} onClick={() => this.setPage(1)}>
-            First
-          </a>
-        </li>
-        <li className={pager.currentPage === 1 ? "disabled" : ""}>
-          <a
-            data-cy="previous"
-            {...styles.link}
-            onClick={() => this.setPage(pager.currentPage - 1)}
-          >
-            Previous
-          </a>
-        </li>
-        {pager.pages.map((page, index) => (
-          <li
-            key={index}
-            className={pager.currentPage === page ? "active" : ""}
-          >
-            <a {...styles.link} onClick={() => this.setPage(page)}>
-              {page}
+      <div {...styles.list}>
+        <ul>
+          <li className={pager.currentPage === 1 ? "disabled" : ""}>
+            <a data-cy="first" {...styles.link} onClick={() => this.setPage(1)}>
+              &#171;
             </a>
           </li>
-        ))}
-        <li
-          className={pager.currentPage === pager.totalPages ? "disabled" : ""}
-        >
-          <a
-            data-cy="next"
-            {...styles.link}
-            onClick={() => this.setPage(pager.currentPage + 1)}
+          <li className={pager.currentPage === 1 ? "disabled" : ""}>
+            <a
+              data-cy="previous"
+              {...styles.link}
+              onClick={() => this.setPage(pager.currentPage - 1)}
+            >
+              &#8249;
+            </a>
+          </li>
+          {pager.pages.map((page, index) => (
+            <li
+              key={index}
+              className={pager.currentPage === page ? "active" : ""}
+            >
+              <a {...styles.link} onClick={() => this.setPage(page)}>
+                {page}
+              </a>
+            </li>
+          ))}
+          <li
+            className={pager.currentPage === pager.totalPages ? "disabled" : ""}
           >
-            Next
-          </a>
-        </li>
-        <li
-          className={pager.currentPage === pager.totalPages ? "disabled" : ""}
-        >
-          <a
-            data-cy="last"
-            {...styles.link}
-            onClick={() => this.setPage(pager.totalPages)}
+            <a
+              data-cy="next"
+              {...styles.link}
+              onClick={() => this.setPage(pager.currentPage + 1)}
+            >
+              &#8250;
+            </a>
+          </li>
+          <li
+            className={pager.currentPage === pager.totalPages ? "disabled" : ""}
           >
-            Last
-          </a>
-        </li>
-      </ul>
+            <a
+              data-cy="last"
+              {...styles.link}
+              onClick={() => this.setPage(pager.totalPages)}
+            >
+              &#187;
+            </a>
+          </li>
+        </ul>
+      </div>
     );
   }
 }
