@@ -108,7 +108,7 @@ function ZapItem(props) {
             props.data.address.neighborhood + ", " + props.data.address.city
           }
         />
-        <Text type="h1" label={header} />
+        <Text type="h2" label={header} />
         <Text
           label={
             bedrooms +
