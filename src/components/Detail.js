@@ -7,25 +7,6 @@ import Header from "./Header";
 import { css } from "glamor";
 
 const styles = {
-  card: css({
-    display: "grid",
-    gridTemplateColumns: "auto",
-    padding: 16,
-    margin: 25,
-    transition: ".3s",
-    backgroundColor: "whitesmoke",
-    "&:hover": {
-      boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)"
-    },
-    "> img": {
-      width: "100%"
-    },
-    "@media(min-width: 570px)": {
-      gridTemplateColumns: "450px auto",
-      maxWidth: 1024,
-      margin: "25px auto"
-    }
-  }),
   wrapper: css({
     display: "grid",
     padding: 16,
