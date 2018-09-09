@@ -2,7 +2,7 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Home from "./components/Home";
 import List from "./components/List";
-import ZapItemDetail from "./components/ZapItemDetail";
+import Detail from "./components/Detail";
 import { css } from "glamor";
 
 // css fontface
@@ -20,7 +20,7 @@ const App = () => (
     <Switch>
       <Route exact path="/" component={Home} />
       <Route exact path="/zap" component={List} />
-      <Route exact path="/zap/:id" component={ZapItemDetail} />
+      <Route exact path="/zap/:id" component={Detail} />
     </Switch>
   </main>
 );

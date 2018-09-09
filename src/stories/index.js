@@ -11,7 +11,6 @@ import App from "../App";
 import Pagination from "../components/Pagination";
 import Slider from "../components/Slider";
 import Text from "../components/Text";
-import ZapItemDetail from "../components/ZapItemDetail";
 
 const data = {
   total: "290 results",
@@ -53,6 +52,8 @@ const data = {
 };
 
 var exampleItems = [...Array(150).keys()].map(i => ({ id: i + 1 }));
+var iconPrice =
+  "https://cdn1.vivareal.com/p/14247-54dc1e2/v/static/app/svg/app/ic-dollarsign.svg";
 
 storiesOf("Pagination", module).add(
   "with 20 itens per page and 10 pages max",
@@ -65,6 +66,19 @@ storiesOf("Text", module).add("h1", () => (
 ));
 storiesOf("Text", module).add("price", () => (
   <Text type="price" label={data.pricingInfos.price} />
+));
+storiesOf("Text", module).add("icon", () => (
+  <Text type="icon" label={data.pricingInfos.price} icon={iconPrice} />
+));
+storiesOf("Text", module).add("iconPrice", () => (
+  <Text type="iconPrice" label={data.pricingInfos.price} icon={iconPrice} />
+));
+storiesOf("Text", module).add("iconArea", () => (
+  <Text
+    type="iconArea"
+    label={data.usableAreas + "/m2"}
+    pricePerM2="(R$ 2.300/m2)"
+  />
 ));
 storiesOf("Image", module).add("default image", () => (
   <Image src={data.images[0]} label="Image" />

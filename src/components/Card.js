@@ -96,7 +96,7 @@ function ZapItem(props) {
   // show price with bounding box
   props.boundinBoxZap
     ? (boundingBox = "OFFER R$ " + discount.toLocaleString())
-    : (boundingBox = "Fora do Bounding Box");
+    : boundingBox;
 
   // return card
   return (
@@ -108,7 +108,7 @@ function ZapItem(props) {
             props.data.address.neighborhood + ", " + props.data.address.city
           }
         />
-        <Text type="h1" label={header} />
+        <Text type="h2" label={header} />
         <Text
           label={
             bedrooms +

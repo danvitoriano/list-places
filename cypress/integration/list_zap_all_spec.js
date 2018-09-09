@@ -84,7 +84,7 @@ describe("test list all products", function() {
     it("contains text", function() {
       cy.get("[data-cy=b154e19dcf71]").should("not.be.visible");
       cy.contains("168c4f8d0a2e");
-      cy.contains("900000");
+      cy.contains("R$ 900.000");
     });
     it("contains slider", function() {
       cy.get(".slider-slides")
