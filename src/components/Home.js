@@ -1,13 +1,32 @@
 import React from "react";
+import Link from "./Link";
+import Text from "./Text";
+import Header from "./Header";
+import { css } from "glamor";
+
+const styles = {
+  wrapper: css({
+    display: "grid",
+    padding: 20,
+    maxWidth: 300,
+    margin: "0 auto",
+    "@media(min-width: 570px)": {
+      maxWidth: 1024,
+      margin: "0 auto",
+      gridTemplateColumns: 'auto auto auto'
+    }
+  }),
+}
 
 function Home() {
   return (
-    <div>
-      <header>Home</header>
-      <a id="zap" href="/zap">
-        ZAP
-      </a>
-      <a href="/vivareal">Vivareal</a>
+    <div >
+      <Header label="Grupo ZAP"/>
+      <div {...styles.wrapper}>
+        <Text label="Escolha uma das opções:"/>
+        <Link label="ZAP" href='/zap'/>
+        <Link label="VIVAREAL" href='/vivareal'/>
+      </div>
     </div>
   );
 }
