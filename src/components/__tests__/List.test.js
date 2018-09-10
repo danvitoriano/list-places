@@ -15,3 +15,15 @@ it("renders /zap", () => {
   const props = wrapper.props();
   expect(props.path).toBe("/zap");
 });
+
+it("renders /vivareal", () => {
+  const context = createRouterContext({ location: { pathname: "/vivareal" } });
+  const wrapper = shallow(
+    <Switch>
+      <Route path="/vivareal" component={List} />
+    </Switch>,
+    { context }
+  );
+  const props = wrapper.props();
+  expect(props.path).toBe("/vivareal");
+});

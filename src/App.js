@@ -19,8 +19,14 @@ const App = () => (
   <main>
     <Switch>
       <Route exact path="/" component={Home} />
-      <Route exact path="/zap" component={List} />
+      <Route exact path="/zap" component={() => <List player="zap" />} />
+      <Route
+        exact
+        path="/vivareal"
+        component={() => <List player="vivareal" />}
+      />
       <Route exact path="/zap/:id" component={Detail} />
+      <Route exact path="/vivareal/:id" component={Detail} />
     </Switch>
   </main>
 );

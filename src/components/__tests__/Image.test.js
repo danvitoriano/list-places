@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Image from "../Image";
+import { shallow } from "enzyme";
 
 const data = {
   textLabel: "My Sample Image",
@@ -17,4 +18,11 @@ it("renders without crashing", () => {
   const div = document.createElement("div");
   ReactDOM.render(<Image src={data.images[0]} label={data.textLabel} />, div);
   ReactDOM.unmountComponentAtNode(div);
+});
+
+test("should display img", () => {
+  const wrapper = shallow(
+    <Image src={data.images[0]} label={data.textLabel} />
+  );
+  expect(wrapper.find("img").length).toBe(1);
 });

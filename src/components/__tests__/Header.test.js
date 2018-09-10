@@ -11,7 +11,7 @@ it("renders without crashing buy", () => {
 
 test("should display div", () => {
   const wrapper = shallow(<Header />);
-  expect(wrapper.find("div").length).toBe(2);
+  expect(wrapper.find("div").length).toBe(4);
 });
 
 test("should display a", () => {
@@ -19,7 +19,12 @@ test("should display a", () => {
   expect(wrapper.find("a").length).toBe(1);
 });
 
-test("should display only one a", () => {
-  const wrapper = mount(<Header />);
-  expect(wrapper.find("a").length).toBe(1);
+test("should display a headerButtons", () => {
+  const wrapper = mount(<Header headerButtons />);
+  expect(wrapper.find("a").length).toBe(3);
+});
+
+test("should display div totals", () => {
+  const wrapper = mount(<Header total="10" player="zap" />);
+  expect(wrapper.find("div").length).toBe(8);
 });
