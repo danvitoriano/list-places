@@ -79,7 +79,7 @@ var iconPrice =
   "https://cdn1.vivareal.com/p/14247-54dc1e2/v/static/app/svg/app/ic-dollarsign.svg";
 
 function ZapItem(props) {
-  var discount = 0;
+  var discount = null;
   var bathrooms = props.data.bathrooms;
   var bedrooms = props.data.bedrooms;
   var parkingSpaces = props.data.parkingSpaces;
@@ -95,10 +95,12 @@ function ZapItem(props) {
     businessType = "à Venda";
     price = props.data.pricingInfos.price;
   }
+
   if (businessType === "RENTAL") {
     businessType = "para Locação";
     price = props.data.pricingInfos.rentalTotalPrice;
   }
+
   header = "Apartamento " + businessType + ", " + props.data.usableAreas + "m²";
 
   // plurals
@@ -111,31 +113,32 @@ function ZapItem(props) {
   // calculate bounding box zap
   if (
     props.player === "zap" &&
-    props.data.pricingInfos.businessType === "SALE"
+    props.data.pricingInfos.businessType === "SALE" &&
+    (lon >= boundinBoxZap.minlon &&
+      lon <= boundinBoxZap.maxlon &&
+      lat <= boundinBoxZap.minlat &&
+      lat >= boundinBoxZap.maxlat)
   ) {
     discount =
       props.data.pricingInfos.price - props.data.pricingInfos.price * 0.1;
+    boundingBox = discount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    console.log(boundingBox);
   }
 
   // calculate bounding box vivareal
   if (
     props.player === "vivareal" &&
-    props.data.pricingInfos.businessType === "RENTAL"
+    props.data.pricingInfos.businessType === "RENTAL" &&
+    (lon >= boundinBoxZap.minlon &&
+      lon <= boundinBoxZap.maxlon &&
+      lat <= boundinBoxZap.minlat &&
+      lat >= boundinBoxZap.maxlat)
   ) {
-    if (props.data.pricingInfos.rentalTotalPrice) {
-      discount = parseInt(props.data.pricingInfos.rentalTotalPrice * 0.5, 10);
-      discount += parseInt(props.data.pricingInfos.rentalTotalPrice, 10);
-    }
-  }
-
-  // show price with bounding box
-  if (
-    lon >= boundinBoxZap.minlon ||
-    lon <= boundinBoxZap.maxlon ||
-    lat >= boundinBoxZap.minlat ||
-    lat <= boundinBoxZap.maxlat
-  ) {
+    discount =
+      parseInt(props.data.pricingInfos.rentalTotalPrice, 10) +
+      parseInt(props.data.pricingInfos.rentalTotalPrice * 0.5, 10);
     boundingBox = discount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    console.log(boundingBox);
   }
 
   // return card
@@ -159,14 +162,14 @@ function ZapItem(props) {
           }
         />
 
-        {discount !== 0 ? (
+        {boundingBox !== "" ? (
           <div {...styles.strike}>
             <Text label={price} type="price" />
           </div>
         ) : (
           <Text label={price} type="price" />
         )}
-        {discount !== 0 ? (
+        {boundingBox !== "" ? (
           <Text label={boundingBox} type="iconPrice" icon={iconPrice} />
         ) : null}
         {props.data.pricingInfos.monthlyCondoFee >= "1000" ? (
