@@ -30,18 +30,18 @@ const styles = {
       maxWidth: 1024,
       margin: "0 auto"
     }
+  }),
+  strike: css({
+    textDecoration: "line-through",
+    color: "red !important"
   })
 };
 
-var discount = 0;
 var bathrooms;
 var bedrooms;
 var parkingSpaces;
 var header;
 var businessType;
-var boundingBox;
-var lon;
-var lat;
 var iconBuilding =
   "https://cdn1.vivareal.com/p/14247-54dc1e2/v/static/app/svg/app/ic-building.svg";
 var iconPrice =
@@ -62,6 +62,10 @@ const boundinBoxZap = {
   maxlat: -23.546686
 };
 var price;
+var discount = null;
+var boundingBox = "";
+var lon;
+var lat;
 
 class Detail extends React.Component {
   constructor(props) {
@@ -131,29 +135,58 @@ class Detail extends React.Component {
             ? (parkingSpaces += " Vaga")
             : (parkingSpaces += " Vagas");
 
-          // calculate bounding box
-          if (item.pricingInfos.price) {
+          // calculate bounding box zap
+          if (
+            this.props.player === "zap" &&
+            item.pricingInfos.businessType === "SALE" &&
+            (lon >= boundinBoxZap.minlon &&
+              lon <= boundinBoxZap.maxlon &&
+              lat <= boundinBoxZap.minlat &&
+              lat >= boundinBoxZap.maxlat)
+          ) {
             discount = item.pricingInfos.price - item.pricingInfos.price * 0.1;
+            boundingBox = discount
+              .toString()
+              .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
           }
 
-          // show price with bounding box
+          // calculate bounding box vivareal
           if (
-            lon >= boundinBoxZap.minlon &&
-            lon <= boundinBoxZap.maxlon &&
-            lat >= boundinBoxZap.minlat &&
-            lat <= boundinBoxZap.maxlat
+            this.props.player === "vivareal" &&
+            item.pricingInfos.businessType === "RENTAL" &&
+            (lon >= boundinBoxZap.minlon &&
+              lon <= boundinBoxZap.maxlon &&
+              lat <= boundinBoxZap.minlat &&
+              lat >= boundinBoxZap.maxlat)
           ) {
-            boundingBox = "OFFER R$ " + discount.toLocaleString();
-          } else {
-            boundingBox = "Fora do Bounding Box";
+            discount =
+              parseInt(item.pricingInfos.rentalTotalPrice, 10) +
+              parseInt(item.pricingInfos.rentalTotalPrice * 0.5, 10);
+            boundingBox = discount
+              .toString()
+              .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
           }
+
           return (
             <div {...styles.wrapper} key={item.id} data-cy={item.id}>
               <Text type="h2" label={header} />
               <div key={item.id} {...styles.detail}>
                 <Slider images={item.images} />
                 <div>
-                  <Text label={price} type="iconPrice" icon={iconPrice} />
+                  {boundingBox !== "" ? (
+                    <div {...styles.strike}>
+                      <Text label={price} type="price" />
+                    </div>
+                  ) : (
+                    <Text label={price} type="price" />
+                  )}
+                  {boundingBox !== "" ? (
+                    <Text
+                      label={boundingBox}
+                      type="iconPrice"
+                      icon={iconPrice}
+                    />
+                  ) : null}
                   <hr />
                   <Text type="icon" label="Apartamento" icon={iconBuilding} />
                   <Text
@@ -199,6 +232,18 @@ class Detail extends React.Component {
                   {item.pricingInfos.price
                     .toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                  . Condomínio no valor de R${" "}
+                  {item.pricingInfos.monthlyCondoFee
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                  . Total de R${" "}
+                  {item.pricingInfos.rentalTotalPrice
+                    ? item.pricingInfos.rentalTotalPrice
+                        .toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+                    : item.pricingInfos.price
+                        .toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                   .
                 </p>
                 <p>O código deste imóvel é {item.id}.</p>

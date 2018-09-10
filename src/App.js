@@ -25,8 +25,12 @@ const App = () => (
         path="/vivareal"
         component={() => <List player="vivareal" />}
       />
-      <Route exact path="/zap/:id" component={Detail} />
-      <Route exact path="/vivareal/:id" component={Detail} />
+      <Route exact path="/zap/:id" component={() => <Detail player="zap" />} />
+      <Route
+        exact
+        path="/vivareal/:id"
+        component={() => <Detail player="vivareal" />}
+      />
     </Switch>
   </main>
 );
