@@ -8,13 +8,6 @@ const source =
   "http://grupozap-code-challenge.s3-website-us-east-1.amazonaws.com/sources/source-1.json";
 const init = { method: "GET", mode: "cors", cache: "default" };
 
-const boundinBoxZap = {
-  minlon: -46.693419,
-  minlat: -23.568704,
-  maxlon: -46.641146,
-  maxlat: -23.546686
-};
-
 class List extends React.Component {
   constructor(props) {
     super(props);
@@ -79,29 +72,8 @@ class List extends React.Component {
     }
   }
 
-  boundinBoxZap(data) {
-    var lon = data.address.geoLocation.location.lon;
-    var lat = data.address.geoLocation.location.lat;
-
-    console.log("type of lon: ", typeof lon);
-    console.log("type of boundingBoxZap.minlon: ", typeof boundinBoxZap.minlon);
-    console.log("if number is negative: ", lon < 0 ? true : false);
-    if (
-      lon < boundinBoxZap.minlon &&
-      lon > boundinBoxZap.maxlon &&
-      lat < boundinBoxZap.minlat &&
-      lat > boundinBoxZap.maxlat
-    ) {
-      return false;
-    }
-    return true;
-  }
-
   filterData(data) {
-    data = data
-      .filter(this.nullLocation)
-      .filter(this.boundinBoxZap)
-      .filter(this.rentalOrSale);
+    data = data.filter(this.nullLocation).filter(this.rentalOrSale);
     this.setState({ fetchedItems: data, loading: false });
   }
 
@@ -148,28 +120,7 @@ var ProductList = props => {
   return (
     <div data-cy="list-container">
       {props.data.map(c => {
-        var lon = c.address.geoLocation.location.lon;
-        var lat = c.address.geoLocation.location.lat;
-        if (
-          lon >= boundinBoxZap.minlon &&
-          lon <= boundinBoxZap.maxlon &&
-          lat >= boundinBoxZap.minlat &&
-          lat <= boundinBoxZap.maxlat
-        ) {
-          return (
-            <Card
-              key={c.id}
-              dataCy={c.id}
-              data={c}
-              boundinBoxZap="true"
-              player={props.player}
-            />
-          );
-        } else {
-          return (
-            <Card key={c.id} dataCy={c.id} data={c} player={props.player} />
-          );
-        }
+        return <Card key={c.id} dataCy={c.id} data={c} player={props.player} />;
       })}
     </div>
   );

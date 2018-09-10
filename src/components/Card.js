@@ -62,11 +62,24 @@ const styles = {
         transform: "scale(1)"
       }
     }
+  }),
+  strike: css({
+    textDecoration: "line-through",
+    color: "red !important"
   })
 };
 
+const boundinBoxZap = {
+  minlon: -46.693419,
+  minlat: -23.568704,
+  maxlon: -46.641146,
+  maxlat: -23.546686
+};
+var iconPrice =
+  "https://cdn1.vivareal.com/p/14247-54dc1e2/v/static/app/svg/app/ic-dollarsign.svg";
+
 function ZapItem(props) {
-  var discount = 0;
+  var discount = null;
   var bathrooms = props.data.bathrooms;
   var bedrooms = props.data.bedrooms;
   var parkingSpaces = props.data.parkingSpaces;
@@ -74,16 +87,20 @@ function ZapItem(props) {
   var businessType = props.data.pricingInfos.businessType;
   var boundingBox = "";
   var price = "";
+  var lon = props.data.address.geoLocation.location.lon;
+  var lat = props.data.address.geoLocation.location.lat;
 
   // translate business type
   if (businessType === "SALE") {
     businessType = "à Venda";
     price = props.data.pricingInfos.price;
   }
+
   if (businessType === "RENTAL") {
     businessType = "para Locação";
     price = props.data.pricingInfos.rentalTotalPrice;
   }
+
   header = "Apartamento " + businessType + ", " + props.data.usableAreas + "m²";
 
   // plurals
@@ -93,15 +110,35 @@ function ZapItem(props) {
     : (bathrooms += " Banheiros | ");
   parkingSpaces <= 1 ? (parkingSpaces += " Vaga") : (parkingSpaces += " Vagas");
 
-  // calculate bounding box
-  if (props.data.pricingInfos.price) {
+  // calculate bounding box zap
+  if (
+    props.player === "zap" &&
+    props.data.pricingInfos.businessType === "SALE" &&
+    (lon >= boundinBoxZap.minlon &&
+      lon <= boundinBoxZap.maxlon &&
+      lat <= boundinBoxZap.minlat &&
+      lat >= boundinBoxZap.maxlat)
+  ) {
     discount =
       props.data.pricingInfos.price - props.data.pricingInfos.price * 0.1;
+    boundingBox = discount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    console.log(boundingBox);
   }
 
-  // show price with bounding box
-  if (props.boundinBoxZap) {
-    boundingBox = "OFFER R$ " + discount.toLocaleString();
+  // calculate bounding box vivareal
+  if (
+    props.player === "vivareal" &&
+    props.data.pricingInfos.businessType === "RENTAL" &&
+    (lon >= boundinBoxZap.minlon &&
+      lon <= boundinBoxZap.maxlon &&
+      lat <= boundinBoxZap.minlat &&
+      lat >= boundinBoxZap.maxlat)
+  ) {
+    discount =
+      parseInt(props.data.pricingInfos.rentalTotalPrice, 10) +
+      parseInt(props.data.pricingInfos.rentalTotalPrice * 0.5, 10);
+    boundingBox = discount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    console.log(boundingBox);
   }
 
   // return card
@@ -124,11 +161,28 @@ function ZapItem(props) {
             parkingSpaces
           }
         />
-        <Text label={boundingBox} />
-        <Text label={price} type="price" />
-        <Text
-          label={"Condomínio: " + props.data.pricingInfos.monthlyCondoFee}
-        />
+
+        {boundingBox !== "" ? (
+          <div {...styles.strike}>
+            <Text label={price} type="price" />
+          </div>
+        ) : (
+          <Text label={price} type="price" />
+        )}
+        {boundingBox !== "" ? (
+          <Text label={boundingBox} type="iconPrice" icon={iconPrice} />
+        ) : null}
+        {props.data.pricingInfos.monthlyCondoFee >= "1000" ? (
+          <Text
+            label={
+              "Condomínio: " +
+              props.data.pricingInfos.monthlyCondoFee.replace(
+                /\B(?=(\d{3})+(?!\d))/g,
+                "."
+              )
+            }
+          />
+        ) : null}
         <Link
           dataCy={props.data.id + "-link"}
           label="Detalhes"

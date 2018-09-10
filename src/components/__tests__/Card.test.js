@@ -28,6 +28,7 @@ const data = {
   pricingInfos: {
     yearlyIptu: "0",
     price: "405000",
+    rentalTotalPrice: "3000",
     businessType: "SALE",
     monthlyCondoFee: "495"
   }
@@ -41,7 +42,7 @@ it("renders without crashing", () => {
 
 test("should display div", () => {
   const wrapper = mount(<Card key="1" data={data} />);
-  expect(wrapper.find("div").length).toBe(12);
+  expect(wrapper.find("div").length).toBe(11);
 });
 
 test("should display a", () => {
