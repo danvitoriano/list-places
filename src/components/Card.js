@@ -33,6 +33,11 @@ const styles = {
       gridTemplateColumns: "450px auto",
       maxWidth: "90%",
       margin: "25px auto"
+    },
+    "@media(min-width: 1024px)": {
+      gridTemplateColumns: "450px auto",
+      maxWidth: 1024,
+      margin: "25px auto"
     }
   }),
   strike: css({

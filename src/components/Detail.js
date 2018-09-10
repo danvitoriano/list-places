@@ -23,10 +23,25 @@ const styles = {
     gridGap: 40,
     width: "100%",
     backgroundColor: "white",
-    maxWidth: 300,
+    maxWidth: 240,
     margin: "0 auto",
-    "@media(min-width: 570px)": {
-      gridTemplateColumns: "400px auto auto",
+    "@media(min-width: 321px)": {
+      gridTemplateColumns: "auto",
+      maxWidth: 280,
+      margin: "0 auto"
+    },
+    "@media(min-width: 540px)": {
+      gridTemplateColumns: "290px auto",
+      maxWidth: "90%",
+      margin: "0 auto"
+    },
+    "@media(min-width: 768px)": {
+      gridTemplateColumns: "450px auto",
+      maxWidth: "90%",
+      margin: "0 auto"
+    },
+    "@media(min-width: 1024px)": {
+      gridTemplateColumns: "450px auto",
       maxWidth: 1024,
       margin: "0 auto"
     }
