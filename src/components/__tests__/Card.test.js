@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Card from "../Card";
+import { mount } from "enzyme";
 
 const data = {
   id: 787654456,
@@ -36,4 +37,29 @@ it("renders without crashing", () => {
   const div = document.createElement("div");
   ReactDOM.render(<Card key="1" data={data} />, div);
   ReactDOM.unmountComponentAtNode(div);
+});
+
+test("should display div", () => {
+  const wrapper = mount(<Card key="1" data={data} />);
+  expect(wrapper.find("div").length).toBe(12);
+});
+
+test("should display a", () => {
+  const wrapper = mount(<Card key="1" data={data} />);
+  expect(wrapper.find("a").length).toBe(3);
+});
+
+test("should display h2", () => {
+  const wrapper = mount(<Card key="1" data={data} />);
+  expect(wrapper.find("h2").length).toBe(1);
+});
+
+test("should display img", () => {
+  const wrapper = mount(<Card key="1" data={data} />);
+  expect(wrapper.find("img").length).toBe(7);
+});
+
+test("should display span", () => {
+  const wrapper = mount(<Card key="1" data={data} />);
+  expect(wrapper.find("span").length).toBe(1);
 });

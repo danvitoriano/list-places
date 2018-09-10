@@ -1,6 +1,6 @@
 import React from "react";
 import { css } from "glamor";
-import "./pagination.css";
+import "./__styles__/pagination.css";
 
 const styles = {
   list: css({

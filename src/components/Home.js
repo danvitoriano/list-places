@@ -13,19 +13,19 @@ const styles = {
     "@media(min-width: 570px)": {
       maxWidth: 1024,
       margin: "0 auto",
-      gridTemplateColumns: 'auto auto auto'
+      gridTemplateColumns: "auto auto auto"
     }
-  }),
-}
+  })
+};
 
 function Home() {
   return (
-    <div >
-      <Header label="Grupo ZAP"/>
+    <div>
+      <Header label="Grupo ZAP" />
       <div {...styles.wrapper}>
-        <Text label="Escolha uma das opções:"/>
-        <Link label="ZAP" href='/zap'/>
-        <Link label="VIVAREAL" href='/vivareal'/>
+        <Text label="Escolha uma das opções:" />
+        <Link dataCy="zap" label="ZAP" href="/zap" />
+        <Link dataCy="vivareal" label="VIVAREAL" href="/vivareal" />
       </div>
     </div>
   );

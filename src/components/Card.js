@@ -73,11 +73,17 @@ function ZapItem(props) {
   var header = "";
   var businessType = props.data.pricingInfos.businessType;
   var boundingBox = "";
+  var price = "";
 
   // translate business type
-  businessType === "SALE"
-    ? (businessType = "à Venda")
-    : (businessType = "para Locação");
+  if (businessType === "SALE") {
+    businessType = "à Venda";
+    price = props.data.pricingInfos.price;
+  }
+  if (businessType === "RENTAL") {
+    businessType = "para Locação";
+    price = props.data.pricingInfos.rentalTotalPrice;
+  }
   header = "Apartamento " + businessType + ", " + props.data.usableAreas + "m²";
 
   // plurals
@@ -94,9 +100,9 @@ function ZapItem(props) {
   }
 
   // show price with bounding box
-  props.boundinBoxZap
-    ? (boundingBox = "OFFER R$ " + discount.toLocaleString())
-    : boundingBox;
+  if (props.boundinBoxZap) {
+    boundingBox = "OFFER R$ " + discount.toLocaleString();
+  }
 
   // return card
   return (
@@ -119,14 +125,14 @@ function ZapItem(props) {
           }
         />
         <Text label={boundingBox} />
-        <Text label={props.data.pricingInfos.price} type="price" />
+        <Text label={price} type="price" />
         <Text
           label={"Condomínio: " + props.data.pricingInfos.monthlyCondoFee}
         />
         <Link
-          dataCy={props.data.id}
+          dataCy={props.data.id + "-link"}
           label="Detalhes"
-          href={"/zap/" + props.data.id}
+          href={"/" + props.player + "/" + props.data.id}
         />
       </div>
     </div>

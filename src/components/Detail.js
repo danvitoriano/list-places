@@ -61,6 +61,7 @@ const boundinBoxZap = {
   maxlon: -46.641146,
   maxlat: -23.546686
 };
+var price;
 
 class Detail extends React.Component {
   constructor(props) {
@@ -92,7 +93,7 @@ class Detail extends React.Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header headerButtons />
         {this.state.data.filter(this.listItem).map(item => {
           businessType = item.pricingInfos.businessType;
           parkingSpaces = item.parkingSpaces;
@@ -110,17 +111,23 @@ class Detail extends React.Component {
           lon = item.address.geoLocation.location.lon;
           lat = item.address.geoLocation.location.lat;
           // translate business type
-          businessType === "SALE"
-            ? (businessType = "à Venda")
-            : (businessType = "para Locação");
+
+          if (businessType === "SALE") {
+            businessType = "à Venda";
+            price = item.pricingInfos.price;
+          }
+          if (businessType === "RENTAL") {
+            businessType = "para Locação";
+            price = item.pricingInfos.rentalTotalPrice;
+          }
           header =
             "Apartamento " + businessType + ", " + item.usableAreas + "m²";
           // plurals
-          bedrooms == 1 ? (bedrooms += " Quarto") : (bedrooms += " Quartos");
-          bathrooms == 1
+          bedrooms === 1 ? (bedrooms += " Quarto") : (bedrooms += " Quartos");
+          bathrooms === 1
             ? (bathrooms += " Banheiro")
             : (bathrooms += " Banheiros");
-          parkingSpaces == 1
+          parkingSpaces === 1
             ? (parkingSpaces += " Vaga")
             : (parkingSpaces += " Vagas");
 
@@ -141,16 +148,12 @@ class Detail extends React.Component {
             boundingBox = "Fora do Bounding Box";
           }
           return (
-            <div {...styles.wrapper} key={item.id}>
+            <div {...styles.wrapper} key={item.id} data-cy={item.id}>
               <Text type="h2" label={header} />
               <div key={item.id} {...styles.detail}>
                 <Slider images={item.images} />
                 <div>
-                  <Text
-                    label={item.pricingInfos.price}
-                    type="iconPrice"
-                    icon={iconPrice}
-                  />
+                  <Text label={price} type="iconPrice" icon={iconPrice} />
                   <hr />
                   <Text type="icon" label="Apartamento" icon={iconBuilding} />
                   <Text

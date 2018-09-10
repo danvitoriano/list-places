@@ -24,7 +24,7 @@ const styles = {
 function Link(props) {
   return (
     <div {...styles.wrapper}>
-      <a data-cy="link-detail" href={props.href} {...styles.link}>
+      <a data-cy={props.dataCy} href={props.href} {...styles.link}>
         {props.label}
       </a>
     </div>

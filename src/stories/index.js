@@ -60,26 +60,23 @@ storiesOf("Pagination", module).add(
   () => <Pagination items={exampleItems} onChangePage={() => null} />
 );
 storiesOf("Card", module).add("with infos", () => <Card data={data} />);
-storiesOf("Text", module).add("default", () => <Text label={data.textLabel} />);
-storiesOf("Text", module).add("h1", () => (
-  <Text type="h1" label={data.textLabel} />
-));
-storiesOf("Text", module).add("price", () => (
-  <Text type="price" label={data.pricingInfos.price} />
-));
-storiesOf("Text", module).add("icon", () => (
-  <Text type="icon" label={data.pricingInfos.price} icon={iconPrice} />
-));
-storiesOf("Text", module).add("iconPrice", () => (
-  <Text type="iconPrice" label={data.pricingInfos.price} icon={iconPrice} />
-));
-storiesOf("Text", module).add("iconArea", () => (
-  <Text
-    type="iconArea"
-    label={data.usableAreas + "/m2"}
-    pricePerM2="(R$ 2.300/m2)"
-  />
-));
+storiesOf("Text", module)
+  .add("default", () => <Text label={data.textLabel} />)
+  .add("h1", () => <Text type="h1" label={data.textLabel} />)
+  .add("price", () => <Text type="price" label={data.pricingInfos.price} />)
+  .add("icon", () => (
+    <Text type="icon" label={data.pricingInfos.price} icon={iconPrice} />
+  ))
+  .add("iconPrice", () => (
+    <Text type="iconPrice" label={data.pricingInfos.price} icon={iconPrice} />
+  ))
+  .add("iconArea", () => (
+    <Text
+      type="iconArea"
+      label={data.usableAreas + "/m2"}
+      pricePerM2="(R$ 2.300/m2)"
+    />
+  ));
 storiesOf("Image", module).add("default image", () => (
   <Image src={data.images[0]} label="Image" />
 ));
@@ -90,9 +87,11 @@ storiesOf("Slider", module).add("default Slider", () => (
   <Slider images={data.images} />
 ));
 storiesOf("Link", module).add("default Link", () => <Link label="Link" />);
-storiesOf("Header", module).add("default Header", () => (
-  <Header total={data.total} />
-));
+storiesOf("Header", module)
+  .add("default Header", () => <Header total={data.total} />)
+  .add("headerButtons Header", () => (
+    <Header headerButtons total={data.total} />
+  ));
 storiesOf("Home", module).add("default Home", () => <Home />);
 storiesOf("List", module)
   .addDecorator(story => (

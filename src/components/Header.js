@@ -12,7 +12,7 @@ const styles = {
   wrapper: css({
     display: "grid",
     padding: "1rem",
-    gridTemplateColumns: "auto auto",
+    gridTemplateColumns: "auto auto auto auto",
     margin: "0 auto",
     "> a": {
       textDecoration: "none",
@@ -38,9 +38,18 @@ function Header(props) {
         <a href="/">
           <Text label="Real Estate" type="h1" />
         </a>
-        {props.total ? (
+        <div>
+          {props.headerButtons ? <Link label="ZAP" href="/zap" /> : null}
+        </div>
+        <div>
+          {props.headerButtons ? (
+            <Link label="VIVAREAL" href="/vivareal" />
+          ) : null}
+        </div>
+        {props.total && props.player ? (
           <div {...styles.back}>
             <Text label={props.total + " results"} />
+            <Text label={props.player} />
           </div>
         ) : null}
       </div>

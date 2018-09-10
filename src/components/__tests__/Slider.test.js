@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Slider from "../Slider";
+import { shallow } from "enzyme";
 
 const data = {
   images: [
@@ -16,4 +17,14 @@ it("renders without crashing", () => {
   const div = document.createElement("div");
   ReactDOM.render(<Slider images={data.images} />, div);
   ReactDOM.unmountComponentAtNode(div);
+});
+
+test("should display div", () => {
+  const wrapper = shallow(<Slider images={data.images} />);
+  expect(wrapper.find("div").length).toBe(3);
+});
+
+test("should display a", () => {
+  const wrapper = shallow(<Slider images={data.images} />);
+  expect(wrapper.find("a").length).toBe(2);
 });

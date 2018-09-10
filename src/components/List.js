@@ -16,17 +16,19 @@ const boundinBoxZap = {
 };
 
 class List extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       loading: true,
       fetchedItems: [],
-      pageOfItems: []
+      pageOfItems: [],
+      player: this.props.player
     };
 
     this.onChangePage = this.onChangePage.bind(this);
     this.filterData = this.filterData.bind(this);
+    this.rentalOrSale = this.rentalOrSale.bind(this);
   }
 
   //business rule 1: lon and lat equal 0, return false
@@ -40,35 +42,41 @@ class List extends React.Component {
     return true;
   }
 
-  //business rule 2: sell price More Than 3500 Per M2
-  sellMoreThan3500PerM2(data) {
-    if (data.pricingInfos.businessType === "SALE") {
-      var pricePerM2 = data.pricingInfos.price / data.usableAreas;
-      if (pricePerM2 <= 3500) {
-        return false;
+  // business rule 4: if rental and zap >= 3500 || rental and viva <= 4000
+  rentalOrSale(data) {
+    var pricePerM2 = data.pricingInfos.price / data.usableAreas;
+
+    if (this.state.player === "zap") {
+      if (data.pricingInfos.businessType === "RENTAL") {
+        if (data.pricingInfos.rentalTotalPrice >= 3500) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        if (data.pricingInfos.price >= 600000) {
+          if (pricePerM2 > 3500) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      }
+    } else {
+      if (data.pricingInfos.businessType === "RENTAL") {
+        if (data.pricingInfos.rentalTotalPrice <= 4000) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        if (data.pricingInfos.price <= 700000) {
+          return true;
+        } else {
+          return false;
+        }
       }
     }
-    return true;
-  }
-
-  rentMoreThan3500(data) {
-    if (
-      data.pricingInfos.businessType === "RENTAL" &&
-      data.pricingInfos.price < 3500
-    ) {
-      return false;
-    }
-    return true;
-  }
-
-  sellMoreThan600000(data) {
-    if (
-      data.pricingInfos.businessType === "SALE" &&
-      data.pricingInfos.price < 600000
-    ) {
-      return false;
-    }
-    return true;
   }
 
   boundinBoxZap(data) {
@@ -92,10 +100,8 @@ class List extends React.Component {
   filterData(data) {
     data = data
       .filter(this.nullLocation)
-      .filter(this.sellMoreThan3500PerM2)
       .filter(this.boundinBoxZap)
-      .filter(this.rentMoreThan3500)
-      .filter(this.sellMoreThan600000);
+      .filter(this.rentalOrSale);
     this.setState({ fetchedItems: data, loading: false });
   }
 
@@ -117,9 +123,16 @@ class List extends React.Component {
     } else {
       return (
         <div>
-          <Header total={this.state.fetchedItems.length} />
+          <Header
+            total={this.state.fetchedItems.length}
+            player={this.props.player}
+            headerButtons
+          />
           <div>
-            <ProductList data={this.state.pageOfItems} />
+            <ProductList
+              data={this.state.pageOfItems}
+              player={this.props.player}
+            />
           </div>
           <Pagination
             items={this.state.fetchedItems}
@@ -144,10 +157,18 @@ var ProductList = props => {
           lat <= boundinBoxZap.maxlat
         ) {
           return (
-            <Card key={c.id} dataCy={c.id} data={c} boundinBoxZap="true" />
+            <Card
+              key={c.id}
+              dataCy={c.id}
+              data={c}
+              boundinBoxZap="true"
+              player={props.player}
+            />
           );
         } else {
-          return <Card key={c.id} dataCy={c.id} data={c} />;
+          return (
+            <Card key={c.id} dataCy={c.id} data={c} player={props.player} />
+          );
         }
       })}
     </div>
