@@ -58,7 +58,14 @@ class List extends React.Component {
     } else {
       if (data.pricingInfos.businessType === "RENTAL") {
         if (data.pricingInfos.rentalTotalPrice <= 4000) {
-          return true;
+          if (
+            data.pricingInfos.monthlyCondoFee <
+            data.pricingInfos.rentalTotalPrice * 0.5
+          ) {
+            return true;
+          } else {
+            return false;
+          }
         } else {
           return false;
         }
