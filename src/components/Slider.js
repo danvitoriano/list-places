@@ -15,12 +15,23 @@ class Slider extends React.Component {
     this.nextSlide = this.nextSlide.bind(this);
     this.previousSlide = this.previousSlide.bind(this);
   }
+
+  // next slide
   nextSlide(event) {
     event.preventDefault();
     let position = this.state.position;
+    let windowWidth = window.innerWidth;
 
-    if (position === -2000 + 400) position = 0;
-    else position -= 400;
+    if (windowWidth >= 768) {
+      if (position === -2000 + 400) position = 0;
+      else position -= 400;
+    } else if (windowWidth > 321 && windowWidth < 768) {
+      if (position === -1400 + 280) position = 0;
+      else position -= 280;
+    } else {
+      if (position === -1200 + 240) position = 0;
+      else position -= 240;
+    }
 
     this.setState({
       position,
@@ -30,12 +41,15 @@ class Slider extends React.Component {
     });
   }
 
+  // previous slide
   previousSlide(event) {
     event.preventDefault();
     let position = this.state.position;
 
-    if (position === 0) position = -1600;
-    else position += 400;
+    if (window > 768) {
+      if (position === 0) position = -1600;
+      else position += 400;
+    }
 
     this.setState({
       position,

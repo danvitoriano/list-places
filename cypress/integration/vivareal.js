@@ -15,7 +15,7 @@ describe("test vivareal products", function() {
     });
     it("show results and player", function() {
       cy.contains("vivareal");
-      cy.contains("153 results");
+      cy.contains("150 results");
     });
     it("contains list first page", function() {
       cy.wait(1000);
@@ -46,7 +46,7 @@ describe("test vivareal products", function() {
       cy.contains("Apartamento à Venda, 57m²");
       cy.get("[data-cy=list-container]")
         .find("> div")
-        .should("have.length", 13);
+        .should("have.length", 10);
     });
     it("click previous page", function() {
       cy.get("[data-cy=previous]").click();
